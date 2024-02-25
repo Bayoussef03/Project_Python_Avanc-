@@ -1,0 +1,20 @@
+des tests unitaire 
+je fais une fonction qui calcul un facteriel N par exemple (je vais faire un tset unitaire )
+unitest sur google ( les exceptions)
+coder des fonction , tester les fonctions (librerie pytest, unitest) 
+bonus projet, (qui tourne bien) ou tkamel loula , les freed , les processus
+
+1mois jawna fesfes
+
+qualité de code / qualité des commentaire : /github el projet / readme: comment j'ai fais, comment installer ext.. 
+
+ sql lite/ pausegrey/ mysql
+
+opencv
+
+nekhdem ou nhabet kol chay al github ou peut etre ki ichouf el git mteayi ou l'avancement, tebda noté lhaja hthika 
+
+
+des test unitaire, pour eviter des erreurs, soit avec data reel soit fake data 
+
+ 
