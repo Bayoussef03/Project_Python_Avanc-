@@ -1,0 +1,28 @@
+over all:
+ecran affichant 2 buttons: 
+- partie 1
+- partie 2
+- footer avec l'operation précédente
+BONUS: améloration de l'application par thread
+
+partie 1:
+1- trouver site fournissant des info format json
+2- implem foction téléchargement info dans la base SQLlite
+3- implem fonction mettre dans la base
+4- implem fonction supprimer la base
+5- touches esthétiques
+6- pop up quand la base est remplie et l'utiliateur appuie sur "télécharger des données"
+7- button aggregation ustilisant des requetes sql 
+8- button visualtion graphique OpenCV
+
+partie 2:
+1- button telecharger le livre
+2- button extraire nom auteur, titre du livre et le 1 chap
+3- button compter les mots de chaque paragraphe du chap 1 et les arrondir aux dizaine et afficher combien de paragraphe ont le meme nombre de mots. afficher un bar chart ou pie chart des nombres de mot par paragraphe
+4- button télécharge une image + button recadrer + champ longeur + champ largeur
+5- button ouvrir une image locale en noir et blanc et la pivoter un angle au choix et puis l'eng "photo n°1"
+6- button fichier word 1er la page de titre avec :
+- titre du livre,
+- photo n° 1,
+- auteur du livre,
+- auteur du rapport (votre nom)
