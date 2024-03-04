@@ -6,9 +6,9 @@ Créez votre propre application de bureau Python avec une interface graphique en
 
 ### Première Partie
 
-1. **Objectif principal :** Créer une application desktop avec Tkinter.
-2. **Site Web pour les données JSON :** Choisissez un site web fournissant des données au format JSON.
-3. **Fonctionnalités :**
+ **Objectif principal :** Créer une application desktop avec Tkinter.
+ **Site Web pour les données JSON :** Choisissez un site web fournissant des données au format JSON.
+   **Fonctionnalités :**
    - Menu pour effacer la base de données et obtenir des données sur Internet.
    - Options de personnalisation pour l'application.
    - Téléchargement et stockage de données dans une base de données SQLite.
