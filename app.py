@@ -8,6 +8,7 @@ from image_edit1 import ImageEdit1
 from image_edit2 import ImageEdit2
 from donnees import ExtDonnees
 from word import Gen_word
+from sqllite_handler import SQLiteHandler
 
 class NFLApp:
     
@@ -58,6 +59,9 @@ class NFLApp:
         self.button_main_menu.pack(side=tk.TOP)
         self.button_part1.pack(side=tk.TOP)
         self.button_part2.pack(side=tk.TOP)
+        
+        self.sql_handler=SQLiteHandler(f"{self.abs_dir}/resultat/ma_base.db")
+
        
     def update_canvas_size(self, event):
 
@@ -90,14 +94,17 @@ class NFLApp:
         part1 = tk.Frame(self.root, width=900, height=600)
         part1.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
                 
-        button_download_db = tk.Button(part1, text="Télécharger les données", command=self.download_db, background="white", height=2, width=20, relief=tk.RAISED)
+        button_telecharger_db = tk.Button(part1, text="Télécharger et crééer la BD", command=self.telecharger_db, background="white", height=2, width=20, relief=tk.RAISED)
         button_delete_data = tk.Button(part1, text="Supprimer les données", command=self.delete_data, background="white", height=2, width=20, relief=tk.RAISED)
-        button_aggregate_data = tk.Button(part1, text="Aggréger les données", command=self.aggregate_data, background="white", height=2, width=20, relief=tk.RAISED)
-        button_show_vis = tk.Button(part1, text="Afficher les visualisations", command=self.show_vis, background="white", height=2, width=20, relief=tk.RAISED)
-        button_download_db.pack(side=tk.TOP)
+        button_chart_salaire = tk.Button(part1, text="Graphique salaire des joueurs", command=self.chart_salaire, background="white", height=2, width=20, relief=tk.RAISED)
+        button_graphique_taille = tk.Button(part1, text="Graphique tailles des joueurs", command=self.graphique_taille, background="white", height=2, width=20, relief=tk.RAISED)
+        button_aggreagation_donnees = tk.Button(part1, text="Aggrégation des données", command=self.aggregation_des_donnees, background="white", height=2, width=20, relief=tk.RAISED)
+
+        button_telecharger_db.pack(side=tk.TOP)
         button_delete_data.pack(side=tk.TOP)
-        button_aggregate_data.pack(side=tk.TOP)
-        button_show_vis.pack(side=tk.TOP)
+        button_chart_salaire.pack(side=tk.TOP)
+        button_graphique_taille.pack(side=tk.TOP)
+        button_aggreagation_donnees.pack(side=tk.TOP)
 
     def part2_menu(self):
         self.clear_widgets()
@@ -173,19 +180,48 @@ class NFLApp:
         except Exception as e:
             tk.messagebox.showerror("Erreur", f"Problème lors de la génération du fichier Word: {str(e)}")
 
-        
-        
-    def download_db(self):
-        self.ajouter_message("Téléchargement des données...")
+    def telecharger_db(self):
+        self.ajouter_message("Téléchargement des données et enregistrement de la BD...")
+        message = self.sql_handler.create_and_save_database()
+        if message == "La base de données existe déjà!":
+            response = messagebox.askyesno("BD existante", f"La base de données existe déjà, voulez vous l'écrasser ?")
+
+            if response:
+                self.sql_handler.delete_database()
+                message = self.sql_handler.create_and_save_database()
+                tk.messagebox.showinfo("Info", message)
+            else:
+                tk.messagebox.showinfo("Info", "BD existante conservée")
+
 
     def delete_data(self):
         self.ajouter_message("Suppression des données...")
-
-    def aggregate_data(self):
-        self.ajouter_message("Aggrégation des données...")
-
-    def show_vis(self):
-        self.ajouter_message("Affichage des visualisations...")
+        message = self.sql_handler.delete_database()
+        tk.messagebox.showinfo("Info", message)
+        
+    def chart_salaire(self):
+        self.ajouter_message("Calcul et affichage chart position...")
+        try:
+            self.sql_handler.display_salary_chart()
+        except Exception as e:
+            tk.messagebox.showerror("Erreur", f"Problème lors de la génération du graph position: {str(e)}")
+            
+    def graphique_taille(self):
+        self.ajouter_message("Calcul et affichage graphique des tailles...")
+        try:
+            self.sql_handler.player_by_height_chat()
+        except Exception as e:
+            tk.messagebox.showerror("Erreur", f"Problème lors de la génération du graph taille: {str(e)}")
+        
+    def aggregation_des_donnees(self):
+        self.ajouter_message("Calcul et affichage d'aggrégation des données...")
+        try:
+            text = self.sql_handler.minmax_players_by_position() + "\n\n" + self.sql_handler.display_player_by_height() + "\n\n" + self.sql_handler.minmax_players_by_position() + "\n\n" + self.sql_handler.display_salary_stats()
+            tk.messagebox.showinfo("Infomation générales", text)
+        except Exception as e:
+            tk.messagebox.showerror("Erreur", f"Problème lors de l'aggrégation des données: {str(e)}")
+        
+        
 
 if __name__ == "__main__":
     root = tk.Tk()
