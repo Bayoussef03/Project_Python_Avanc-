@@ -1,0 +1,4 @@
+matplotlib
+docx
+requests
+python-docx 
