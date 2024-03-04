@@ -1,4 +1,4 @@
-# # Application de Bureau Python - Projet NFL Football Américain
+## Application de Bureau Python - Projet NFL Football Américain ##
 
 ## Description du Projet
 
